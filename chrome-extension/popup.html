@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Search AI MCP</title>
+  <style>
+    body {
+      width: 360px;
+      min-height: 240px;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      padding: 20px;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    
+    .header h1 {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .header p {
+      margin: 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+    
+    .status-section {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .status-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    .status-label {
+      opacity: 0.85;
+      font-weight: 500;
+    }
+    
+    .status-value {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .status-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
+    .status-indicator.connected {
+      background: #4CAF50;
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+    }
+    
+    .status-indicator.disconnected {
+      background: #f44336;
+      box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+    }
+    
+    .actions {
+      display: grid;
+      gap: 12px;
+    }
+    
+    .btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 20px;
+    }
+    
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+    }
+    
+    .btn.primary {
+      background: rgba(76, 175, 80, 0.8);
+      border-color: rgba(76, 175, 80, 0.9);
+    }
+    
+    .btn.primary:hover {
+      background: rgba(76, 175, 80, 0.9);
+      border-color: rgba(76, 175, 80, 1);
+    }
+    
+    .btn.secondary {
+      background: rgba(33, 150, 243, 0.8);
+      border-color: rgba(33, 150, 243, 0.9);
+    }
+    
+    .btn.secondary:hover {
+      background: rgba(33, 150, 243, 0.9);
+      border-color: rgba(33, 150, 243, 1);
+    }
+    
+    .config-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: none;
+    }
+    
+    .config-section.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: 8px;
+      font-size: 13px;
+      box-sizing: border-box;
+      backdrop-filter: blur(5px);
+    }
+    
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    
+    .form-actions .btn {
+      flex: 1;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+    
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 11px;
+      opacity: 0.7;
+    }
+    
+    .loading {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .btn-icon {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Google Search AI MCP</h1>
+      <p>Community Chrome Extension Bridge</p>
+    </div>
+    
+    <div class="status-section">
+      <div class="status-row">
+        <span class="status-label">Server Connection</span>
+        <span class="status-value" id="connection-status">
+          <span class="loading"></span>Checking...
+        </span>
+      </div>
+      
+      <div class="status-row">
+        <span class="status-label">WebSocket URL</span>
+        <span class="status-value" id="server-url">ws://localhost:8761</span>
+      </div>
+    </div>
+    
+    <div class="config-section" id="config-section">
+      <div class="form-group">
+        <label class="form-label" for="websocket-url">WebSocket Server URL</label>
+        <input 
+          type="text" 
+          id="websocket-url" 
+          class="form-input"
+          placeholder="ws://localhost:8761"
+        />
+      </div>
+      
+      <div class="form-actions">
+        <button class="btn primary" id="save-config-btn">Save</button>
+        <button class="btn" id="cancel-config-btn">Cancel</button>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button class="btn primary" id="open-google-ai">
+        <span class="btn-icon">🤖</span>
+        Open Google AI
+      </button>
+      
+      <button class="btn secondary" id="configure-btn">
+        <span class="btn-icon">⚙️</span>
+        Configure
+      </button>
+      
+      <button class="btn" id="refresh-btn">
+        <span class="btn-icon">🔄</span>
+        Refresh Status
+      </button>
+    </div>
+    
+    <div class="footer">
+      Google Search AI MCP Extension<br>
+      Connect AI agents to Google Search AI
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

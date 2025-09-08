@@ -1,0 +1,12 @@
+# FastMCP Framework for MCP server implementation
+fastmcp==2.11.2
+
+# WebSocket support for Chrome extension communication
+websockets>=12.0
+
+# HTML parsing for Google Search AI responses
+beautifulsoup4>=4.12.0
+markdownify>=0.11.6
+
+# Type hints for older Python versions  
+typing-extensions>=4.8.0

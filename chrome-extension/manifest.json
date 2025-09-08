@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "Google Search AI MCP Bridge",
+  "version": "1.0.0",
+  "description": "Chrome extension bridge for Google Search AI MCP Server to interact with Google Search AI",
+  
+  "permissions": [
+    "activeTab",
+    "tabs", 
+    "storage",
+    "scripting"
+  ],
+  
+  "host_permissions": [
+    "https://www.google.com/*"
+  ],
+  
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/search*", "https://www.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Google Search AI MCP",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png", 
+      "128": "icon128.png"
+    }
+  },
+  
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["content.js", "utils/logger.js"],
+      "matches": ["https://www.google.com/*"]
+    }
+  ]
+}
