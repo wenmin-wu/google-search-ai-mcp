@@ -4,6 +4,10 @@
 
 一个 MCP 服务器和 Chrome 扩展，使 AI 代理能够通过浏览器自动化与 Google Search AI 进行对话。
 
+## 📸 演示
+
+![Google Search AI MCP 演示](screenshots/cursor-google-search.gif)
+
 ## 🌟 功能特性
 
 ✅ **简单设置**: 基于 WebSocket 的通信  

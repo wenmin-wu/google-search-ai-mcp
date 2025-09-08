@@ -4,6 +4,10 @@
 
 A MCP server and Chrome extension that enables AI agents to conduct conversations with Google Search AI through browser automation.
 
+## 📸 Demo
+
+![Google Search AI MCP Demo](screenshots/cursor-google-search.gif)
+
 ## 🌟 Features
 
 ✅ **Simple Setup**: WebSocket-based communication
